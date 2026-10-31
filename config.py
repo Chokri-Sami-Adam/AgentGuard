@@ -1,16 +1,22 @@
-"""Central application configuration."""
 
 import os
-from dataclasses import dataclass
+from dotenv import load_dotenv
 
+# Load environment variables
+load_dotenv()
 
-@dataclass(frozen=True)
-class Settings:
-    """Runtime settings loaded from environment variables."""
+# OpenRouter configuration
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
-    app_name: str = os.getenv("APP_NAME", "AgentGuard")
-    environment: str = os.getenv("APP_ENV", "development")
-    debug: bool = os.getenv("APP_DEBUG", "false").strip().lower() in {"1", "true", "yes"}
+OPENROUTER_MODEL = os.getenv(
+    "OPENROUTER_MODEL",
+    "openai/gpt-4o-mini"
+)
 
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 
-settings = Settings()
+# Validate configuration
+if not OPENROUTER_API_KEY:
+    raise ValueError(
+        "OPENROUTER_API_KEY is missing. Check your .env file."
+    )
