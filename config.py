@@ -2,21 +2,16 @@
 import os
 from dotenv import load_dotenv
 
-# Load environment variables
+# Load environment variables from .env
 load_dotenv()
 
-# OpenRouter configuration
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-
-OPENROUTER_MODEL = os.getenv(
-    "OPENROUTER_MODEL",
-    "openai/gpt-4o-mini"
+# Ollama local configuration
+OLLAMA_BASE_URL = os.getenv(
+    "OLLAMA_BASE_URL",
+    "http://localhost:11434"
 )
 
-OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-
-# Validate configuration
-if not OPENROUTER_API_KEY:
-    raise ValueError(
-        "OPENROUTER_API_KEY is missing. Check your .env file."
-    )
+OLLAMA_MODEL = os.getenv(
+    "OLLAMA_MODEL",
+    "llama3.2:1b"
+)
